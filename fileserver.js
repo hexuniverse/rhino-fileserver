@@ -384,9 +384,11 @@ Application.prototype.processResponse = function(exchange) {
     }
     response.append('<style>a.hoverColor:hover {color: red;}</style>');
     if (dataSetName || targetFile.isFile()) {
-        response.append('<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>');
+        var link = 'http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js';
+        response.append('<script src="%s"></script>'.format(link));
         response.append('<script>hljs.initHighlightingOnLoad();</script>');
-        response.append('<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/vs.min.css">');
+        link = 'http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/vs.min.css';
+        response.append('<link rel="stylesheet" href="%s">'.format(link));
         response.append('<style>a {font-family: monospace;}');
         response.append('td:first-child a {display: block;}');
         response.append('td:first-child a:hover {color: red;}</style>');
@@ -538,8 +540,10 @@ Application.prototype.processResponse = function(exchange) {
         response.append('<style>a, td {font-family: monospace;}');
         response.append('a:hover {color: red;}');
         response.append('table a {display: block; width: 100%;}');
-        response.append('a.dir {padding-left: 1.5em; background: url("http://png-5.findicons.com/files/icons/1723/humility/16/gnome_fs_directory.png") left top no-repeat;}');
-        response.append('a.file {padding-left: 1.5em; background: url("http://png-4.findicons.com/files/icons/1620/crystal_project/16/text_left.png") left top no-repeat;}');
+        var link = 'http://png-5.findicons.com/files/icons/1723/humility/16/gnome_fs_directory.png';
+        response.append('a.dir {padding-left: 1.5em; background: url("%s") left top no-repeat;}'.format(link));
+        link = 'http://png-4.findicons.com/files/icons/1620/crystal_project/16/text_left.png';
+        response.append('a.file {padding-left: 1.5em; background: url("%s") left top no-repeat;}'.format(link));
         response.append('td a {min-width: 100px;}');
         response.append('td:nth-child(2) {text-align: right;}');
         response.append('td:not(:first-child) {padding-left: 25px;}</style>');
