@@ -14,4 +14,9 @@ Usage:
 fileserver.js -p<PORT>
 ```
 
+fileserver.sh script could be used to daemonize a process and kill a daemon by PID found in log:
+```sh
+fileserver [stop]
+```
+
 [Rhino JS]:https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino
