@@ -5,6 +5,13 @@ Overview
 -----------
 rhino-fileserver is a HTTP file server written on [Rhino JS].
 
+fileserver.sh script could be used to daemonize a process and kill a daemon by PID found in log:
+```sh
+fileserver [stop]
+```
+
+Ctrl+D opens a prompt in which you can specify a data set name or data set search filter.
+
 Features
 -----------
   - File listings: name, type, size, owner, modification time.
@@ -26,10 +33,5 @@ File list:
 ![File list](http://i.imgur.com/MinO4r8.png "File list")
 Data set list:
 ![Data set list](http://i.imgur.com/CiAONEy.png "Data set list")
-
-fileserver.sh script could be used to daemonize a process and kill a daemon by PID found in log:
-```sh
-fileserver [stop]
-```
 
 [Rhino JS]:https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino
