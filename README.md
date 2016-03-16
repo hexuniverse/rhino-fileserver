@@ -1,18 +1,24 @@
 rhino-fileserver
 =========
 
+Overview
+-----------
 rhino-fileserver is the HTTP file server written on [Rhino JS].
 
-Features:
+Features
+-----------
   - File listings: name, type, size, owner, modification time.
   - Links to line numbers.
   - Syntax highlighting.
   - z/OS support: data sets, PDS directories, catalog search.
 
-Usage:
+Usage
+-----------
 ```sh
 fileserver.js -p<PORT>
 ```
+
+![Data set list](http://i.imgur.com/CiAONEy.png "Data set list")
 
 fileserver.sh script could be used to daemonize a process and kill a daemon by PID found in log:
 ```sh

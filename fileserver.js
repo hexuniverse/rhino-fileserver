@@ -206,8 +206,24 @@ Application.prototype.processResponse = function(exchange) {
         return;
     }
     response.append('<!doctype html><html><head><meta charset="utf-8">');
-    response.append('<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"></head>');
+    response.append('<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">');
+    response.append('<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script></head>');
     response.append('<body style="font-size: 13px; line-height: 16px;">');
+    var browserLogic = function() {
+        $(document).bind('keydown', function(event) {
+            if (event.ctrlKey || event.metaKey) {
+                switch (String.fromCharCode(event.which).toLowerCase()) {
+                case 'd':
+                    event.preventDefault();
+                    location = '/?d=' + prompt("Data set name:");
+                    break;
+                }
+            }
+        });
+    }
+    var browserLogic = browserLogic.toString();
+    browserLogic = browserLogic.substring(browserLogic.indexOf('{') + 1, browserLogic.lastIndexOf('}'));
+    response.append('<script>%s</script>'.format(browserLogic));
     if (dataSetName) {
         dataSetName = dataSetName.toUpperCase();
     }
@@ -384,10 +400,12 @@ Application.prototype.processResponse = function(exchange) {
     }
     response.append('<style>a.hoverColor:hover {color: red;}</style>');
     if (dataSetName || targetFile.isFile()) {
-        var link = 'http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js';
+        var link = '//cdnjs.cloudflare.com/ajax/libs/jquery-color/2.1.1/jquery.color.min.js';
+        response.append('<script src="%s"></script>'.format(link));
+        link = '//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js';
         response.append('<script src="%s"></script>'.format(link));
         response.append('<script>hljs.initHighlightingOnLoad();</script>');
-        link = 'http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/vs.min.css';
+        link = '//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/vs.min.css';
         response.append('<link rel="stylesheet" href="%s">'.format(link));
         response.append('<style>a {font-family: monospace;}');
         response.append('td:first-child a {display: block;}');
@@ -435,6 +453,15 @@ Application.prototype.processResponse = function(exchange) {
                     codeBlock.className = this.options[this.selectedIndex].value;
                     hljs.highlightBlock(codeBlock);
                 };
+                var match = window.location.href.match(/#(l\d+)$/);
+                if (match) {
+                    var anchor = $('a[name=' + match[1] + ']');
+                    anchor.stop();
+                    for (var index = 0; index < 3; index++) {
+                        anchor.animate({backgroundColor: 'lime'}, 250);
+                        anchor.animate({backgroundColor: 'white'}, 250);
+                    }
+                }
             };
         }
         var browserLogic = browserLogic.toString();
